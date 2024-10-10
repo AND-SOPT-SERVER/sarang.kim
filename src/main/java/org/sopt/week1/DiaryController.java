@@ -1,6 +1,5 @@
 package org.sopt.week1;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class DiaryController {
@@ -25,17 +24,21 @@ public class DiaryController {
     }
 
     final void post(final String body) {
-        //+30자인지 검증하기 , 예외던지기
-
+        if (body.length() > 30) {
+            throw new IllegalArgumentException("글자수 제한");
+        }
         diaryService.writeDiary(body);
     }
 
     final void delete(final String id) {
-
+        diaryService.deleteDiary(Long.parseLong(id));
     }
 
     final void patch(final String id, final String body) {
-
+        if (body.length() > 30) {
+            throw new IllegalArgumentException("글자수 제한");
+        }
+        diaryService.editDiary(Long.parseLong(id), body);
     }
 
     enum Status {

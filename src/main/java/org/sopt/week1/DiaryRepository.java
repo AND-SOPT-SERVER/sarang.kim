@@ -18,15 +18,28 @@ public class DiaryRepository {
     }
 
     List<Diary> findAll() {
-        //1. diary 담을 자료구조
+        // 1. diary 담을 자료구조
         final List<Diary> diaryList = new ArrayList<>();
-        //2. 저장한 값을 불러오는 반복 구조
-        for (long index = 1; index <= numbering.intValue(); index++) {
-            final String body = storage.get(index);
-            //2-1. 불러온 값을 구성한 자료구조로 이관
-            diaryList.add(new Diary(index, body));
+        // 2. 저장된 모든 키를 가져와서 해당 키로 일기를 불러오기
+        for (Long id : storage.keySet()) {
+            String body = storage.get(id);
+            // 2-1. 불러온 값을 구성한 자료구조로 이관
+            diaryList.add(new Diary(id, body));
         }
-        //3. 불러온 자료구조를 응답
+        // 3. 불러온 자료구조를 응답
         return diaryList;
+    }
+
+    public Diary findById(final Long id) {
+        String body = storage.get(id);
+        return (body != null) ? new Diary(id, body) : null;
+    }
+
+    void deleteById(final Long id) {
+        storage.remove(id);
+    }
+
+    void edit(final Long id, final String body) {
+        storage.put(id, body);
     }
 }
