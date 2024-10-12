@@ -41,6 +41,14 @@ public class DiaryController {
         diaryService.editDiary(Long.parseLong(id), body);
     }
 
+    final List<Diary> getDeletedList() {
+        return diaryService.getDeletedDiaryList();
+    }
+
+    final void restore(final String id) {
+        diaryService.restoreDiary(Long.parseLong(id));
+    }
+
     enum Status {
         READY,
         RUNNING,

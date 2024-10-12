@@ -24,6 +24,19 @@ public class DiaryService {
         diaryRepository.edit(id, body);
     }
 
+    public void restoreDiary(final Long id) {
+        Diary diary = diaryRepository.findById(id);
+        if (diary == null) {
+            diaryRepository.restoreById(id); //복구
+        } else {
+            throw new IllegalArgumentException("이미 존재하는 일기에요.");
+        }
+    }
+
+    public List<Diary> getDeletedDiaryList() {
+        return diaryRepository.findAllDeleted(); //삭제된 일기 목록 반환
+    }
+
     private void validateDiaryExists(final Long id) {
         Diary diary = diaryRepository.findById(id);
         if (diary == null) {
