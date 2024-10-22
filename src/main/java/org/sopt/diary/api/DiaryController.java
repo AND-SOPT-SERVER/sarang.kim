@@ -16,6 +16,7 @@ import java.util.Map;
 @RestController
 public class DiaryController {
     private final DiaryService diaryService;
+    private static final int MAX_CONTENT_LENGTH = 30;
 
     public DiaryController(DiaryService diaryService) {
         this.diaryService = diaryService;
@@ -23,9 +24,8 @@ public class DiaryController {
 
     @PostMapping("/diaries")
     ResponseEntity<?> post(@RequestBody DiaryRequest request) { //@RequestBody는 클라이언트가 보낸 JSON 데이터를 객체(여기서는 DiaryRequest)로 변환
-        if (request.getContent().length() > 30) {
-            return ResponseEntity.badRequest().body("30자 넘어요");
-        }
+        ResponseEntity<?> validationError = validateContentLength(request.getContent());
+        if (validationError != null) return validationError;
 
         Long diaryId = diaryService.createDiary(request.getTitle(), request.getContent(), request.getCategory());
         return ResponseEntity.ok(Map.of("diaryId", diaryId));
@@ -57,6 +57,11 @@ public class DiaryController {
 
     @PatchMapping("/diaries")
     ResponseEntity<?> patch(@RequestBody DiaryRequest request) {
+        ResponseEntity<?> validationError = validateContentLength(request.getContent());
+        if (validationError != null) {
+            return validationError;
+        }
+
         try {
             diaryService.updateDiary(request.getDiaryId(), request.getTitle(), request.getContent(), request.getCategory());
             return ResponseEntity.ok(Map.of("diaryId", request.getDiaryId()));
@@ -71,4 +76,10 @@ public class DiaryController {
         return ResponseEntity.ok(Map.of("diaryId", request.getDiaryId()));
     }
 
+    private ResponseEntity<?> validateContentLength(String content) {
+        if (content.length() > MAX_CONTENT_LENGTH) {
+            return ResponseEntity.badRequest().body("30자 넘어요");
+        }
+        return null;
+    }
 }
