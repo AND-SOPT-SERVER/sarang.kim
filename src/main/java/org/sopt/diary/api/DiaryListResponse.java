@@ -1,17 +1,29 @@
 package org.sopt.diary.api;
 
-import org.sopt.diary.repository.DiaryListItemResponse;
-
-import java.util.List;
-
 public class DiaryListResponse {
-    private final List<DiaryListItemResponse> diaryList;
+    private Long diaryId;
+    private String title;
 
-    public DiaryListResponse(List<DiaryListItemResponse> diaryList) {
-        this.diaryList = diaryList;
+    public DiaryListResponse() {}
+
+    public DiaryListResponse(Long diaryId, String title) {
+        this.diaryId = diaryId;
+        this.title = title;
     }
 
-    public List<DiaryListItemResponse> getDiaryList() {
-        return diaryList;
+    public Long getDiaryId() {
+        return diaryId;
+    }
+
+    public void setDiaryId(Long diaryId) {
+        this.diaryId = diaryId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

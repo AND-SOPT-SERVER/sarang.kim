@@ -1,7 +1,5 @@
 package org.sopt.diary.api;
 
-//DTO: 데이터를 계층 간, 특히 클라이언트와 서버사이에서 주고받기 위한 전용 객체
-
 public class DiaryRequest {
     private Long diaryId;
     private String title;
@@ -21,8 +19,16 @@ public class DiaryRequest {
         return diaryId;
     }
 
+    public void setDiaryId(Long diaryId) {
+        this.diaryId = diaryId;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
