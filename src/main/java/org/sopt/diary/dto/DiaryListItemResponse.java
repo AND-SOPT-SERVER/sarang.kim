@@ -1,4 +1,4 @@
-package org.sopt.diary.repository;
+package org.sopt.diary.dto;
 
 public class DiaryListItemResponse {
     private final Long diaryId;

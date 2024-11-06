@@ -1,18 +1,20 @@
-package org.sopt.diary.api;
+package org.sopt.diary.dto;
 
-public class DiaryRequest {
+import java.time.LocalDateTime;
+
+public class DiaryDetailResponse {
     private Long diaryId;
     private String title;
     private String content;
-    private String category;
+    private LocalDateTime createdAt;
 
-    public DiaryRequest() {}
+    public DiaryDetailResponse() {}
 
-    public DiaryRequest(Long id, String title, String content) {
-        this.diaryId = id;
+    public DiaryDetailResponse(Long diaryId, String title, String content, LocalDateTime createdAt) {
+        this.diaryId = diaryId;
         this.title = title;
         this.content = content;
-        this.category = null;
+        this.createdAt = createdAt;
     }
 
     public Long getDiaryId() {
@@ -39,11 +41,11 @@ public class DiaryRequest {
         this.content = content;
     }
 
-    public String getCategory() {
-        return category;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
